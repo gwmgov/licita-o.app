@@ -1,0 +1,306 @@
+/* =====================================================================
+   SISTEMA DE LICITAÇÕES — Identidade visual
+   Paleta inspirada em editais e carimbos oficiais: azul-aço institucional,
+   papel off-white e acentos de status vindos de selos de carimbo.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  --cor-fundo: #F4F6F8;
+  --cor-papel: #FFFFFF;
+  --cor-tinta: #1C2733;
+  --cor-tinta-suave: #5B6B7A;
+  --cor-linha: #DCE2E8;
+
+  --azul-institucional: #1F3A5F;
+  --azul-institucional-escuro: #142A45;
+  --azul-aco: #2E5C8A;
+  --azul-aco-claro: #EAF0F7;
+
+  --status-pendente: #B8860B;
+  --status-pendente-bg: #FBF1DC;
+  --status-analise: #2E5C8A;
+  --status-analise-bg: #E7EFF7;
+  --status-aprovado: #2E7D4F;
+  --status-aprovado-bg: #E7F3EC;
+  --status-reprovado: #B3261E;
+  --status-reprovado-bg: #FBEAE9;
+  --status-cancelado: #6B7280;
+  --status-cancelado-bg: #ECEDEF;
+  --status-rascunho: #8A6D3B;
+  --status-rascunho-bg: #F6EFE1;
+
+  --fonte-base: 'IBM Plex Sans', -apple-system, sans-serif;
+  --fonte-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  font-family: var(--fonte-base);
+  background: var(--cor-fundo);
+  color: var(--cor-tinta);
+  font-size: 15px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--fonte-base);
+  font-weight: 700;
+  color: var(--azul-institucional-escuro);
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--azul-aco); }
+
+/* ---------- Barra lateral ---------- */
+.sidebar {
+  background: var(--azul-institucional-escuro);
+  color: #C9D6E4;
+  min-height: 100vh;
+  width: 240px;
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+}
+
+.sidebar .brand {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 1rem;
+}
+
+.sidebar .brand .selo {
+  width: 36px; height: 36px;
+  border: 2px solid #C9D6E4;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte-mono);
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 8px;
+}
+
+.sidebar .brand .titulo {
+  font-weight: 700;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.sidebar .brand .subtitulo {
+  font-size: 0.72rem;
+  color: #8FA5BE;
+  letter-spacing: 0.02em;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.5rem;
+  color: #C9D6E4;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease;
+}
+.sidebar nav a:hover { background: rgba(255,255,255,0.06); }
+.sidebar nav a.ativo {
+  background: rgba(255,255,255,0.08);
+  border-left-color: var(--status-pendente);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar .usuario-rodape {
+  margin-top: auto;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.82rem;
+}
+
+/* ---------- Conteúdo principal ---------- */
+.conteudo {
+  margin-left: 240px;
+  padding: 2rem 2.25rem;
+}
+
+.topo-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.75rem;
+}
+
+.protocolo-tag {
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  color: var(--cor-tinta-suave);
+  background: var(--azul-aco-claro);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+/* ---------- Cards ---------- */
+.painel {
+  background: var(--cor-papel);
+  border: 1px solid var(--cor-linha);
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.indicador {
+  background: var(--cor-papel);
+  border: 1px solid var(--cor-linha);
+  border-left: 4px solid var(--azul-aco);
+  border-radius: 4px;
+  padding: 1.1rem 1.3rem;
+}
+.indicador .numero {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--azul-institucional-escuro);
+  line-height: 1;
+  font-family: var(--fonte-mono);
+}
+.indicador .rotulo {
+  font-size: 0.82rem;
+  color: var(--cor-tinta-suave);
+  margin-top: 0.35rem;
+}
+.indicador.valor { border-left-color: var(--status-aprovado); }
+
+/* ---------- Selos de status ---------- */
+.selo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.selo-status::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.selo-pendente { background: var(--status-pendente-bg); color: var(--status-pendente); }
+.selo-pendente::before { background: var(--status-pendente); }
+.selo-analise { background: var(--status-analise-bg); color: var(--status-analise); }
+.selo-analise::before { background: var(--status-analise); }
+.selo-aprovado { background: var(--status-aprovado-bg); color: var(--status-aprovado); }
+.selo-aprovado::before { background: var(--status-aprovado); }
+.selo-reprovado { background: var(--status-reprovado-bg); color: var(--status-reprovado); }
+.selo-reprovado::before { background: var(--status-reprovado); }
+.selo-cancelado { background: var(--status-cancelado-bg); color: var(--status-cancelado); }
+.selo-cancelado::before { background: var(--status-cancelado); }
+.selo-rascunho { background: var(--status-rascunho-bg); color: var(--status-rascunho); }
+.selo-rascunho::before { background: var(--status-rascunho); }
+
+/* ---------- Formulário em etapas (wizard) ---------- */
+.wizard-passos {
+  display: flex;
+  list-style: none;
+  padding: 0; margin: 0 0 2rem;
+  border-bottom: 1px solid var(--cor-linha);
+}
+.wizard-passos li {
+  flex: 1;
+  text-align: center;
+  padding-bottom: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--cor-tinta-suave);
+  border-bottom: 3px solid transparent;
+  position: relative;
+}
+.wizard-passos li .num {
+  display: inline-flex;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cor-linha);
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  margin-right: 0.4rem;
+}
+.wizard-passos li.ativo {
+  color: var(--azul-institucional-escuro);
+  font-weight: 600;
+  border-bottom-color: var(--azul-aco);
+}
+.wizard-passos li.ativo .num { background: var(--azul-aco); border-color: var(--azul-aco); color: #fff; }
+.wizard-passos li.concluido .num { background: var(--status-aprovado); border-color: var(--status-aprovado); color: #fff; }
+
+.etapa { display: none; }
+.etapa.ativa { display: block; animation: revelar 0.2s ease; }
+@keyframes revelar { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---------- Formulários ---------- */
+.form-label { font-size: 0.83rem; font-weight: 600; color: var(--cor-tinta); }
+.form-control, .form-select {
+  border-color: var(--cor-linha);
+  font-size: 0.9rem;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--azul-aco);
+  box-shadow: 0 0 0 3px rgba(46,92,138,0.12);
+}
+
+.btn-primario {
+  background: var(--azul-institucional);
+  border-color: var(--azul-institucional);
+  color: #fff;
+  font-weight: 600;
+}
+.btn-primario:hover { background: var(--azul-institucional-escuro); border-color: var(--azul-institucional-escuro); color: #fff; }
+
+/* ---------- Tabela ---------- */
+.tabela-licitacoes thead th {
+  font-size: 0.75rem;
+  text-transform: none;
+  color: var(--cor-tinta-suave);
+  font-weight: 600;
+  border-bottom: 2px solid var(--cor-linha);
+  background: var(--cor-papel);
+}
+.tabela-licitacoes tbody tr:hover { background: var(--azul-aco-claro); cursor: pointer; }
+.tabela-licitacoes td { font-size: 0.87rem; vertical-align: middle; }
+
+/* ---------- Linha do tempo (histórico) ---------- */
+.linha-tempo { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--cor-linha); margin-left: 6px; }
+.linha-tempo li { position: relative; padding: 0 0 1.25rem 1.25rem; }
+.linha-tempo li::before {
+  content: '';
+  position: absolute; left: -6.5px; top: 3px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--azul-aco);
+}
+.linha-tempo .data { font-family: var(--fonte-mono); font-size: 0.75rem; color: var(--cor-tinta-suave); }
+
+/* ---------- Tela de login ---------- */
+.tela-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--azul-institucional-escuro) 0%, var(--azul-institucional) 55%, var(--azul-aco) 100%);
+}
+.cartao-login {
+  background: var(--cor-papel);
+  border-radius: 8px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(10,20,35,0.35);
+}
+
+@media (max-width: 900px) {
+  .sidebar { width: 100%; position: static; min-height: auto; }
+  .conteudo { margin-left: 0; padding: 1.25rem; }
+}
