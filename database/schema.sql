@@ -69,18 +69,11 @@ CREATE TABLE solicitacoes (
     edital_numero                VARCHAR(60),
     orgao                         VARCHAR(150),
     uf                            CHAR(2),
-    prazo_entrega                 DATE,
-    item                          VARCHAR(150),
-    modelo                        VARCHAR(150),
-    versao                        VARCHAR(50),
-    m_y                           VARCHAR(20),   -- Model Year (ex: 2026)
+    prazo_entrega_dias           INTEGER,       -- prazo em dias (ex: 90, 120), não uma data fixa
+    itens                         JSONB NOT NULL DEFAULT '[]'::jsonb, -- lista de itens (item, modelo, versão, M/Y, cor, quantidade, protótipo, acessórios, revisões)
     cor                           VARCHAR(50),
-    quantidade                    INTEGER CHECK (quantidade >= 0),
     srp                           BOOLEAN DEFAULT FALSE,
     valor_estimado                NUMERIC(15,2) CHECK (valor_estimado >= 0),
-    apresentar_prototipo          BOOLEAN DEFAULT FALSE,
-    acessorios                    TEXT,
-    revisoes                      TEXT,
     seguro_garantia               BOOLEAN DEFAULT FALSE,
     transformacao                 BOOLEAN DEFAULT FALSE,
     observacoes                   TEXT,

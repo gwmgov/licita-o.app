@@ -39,7 +39,9 @@ const API = {
     const dados = isJson ? await resposta.json() : null;
 
     if (!resposta.ok) {
-      throw new Error(dados?.erro || 'Erro na requisição.');
+      const mensagemBase = dados?.erro || 'Erro na requisição.';
+      const mensagemCompleta = dados?.detalhe ? `${mensagemBase} (${dados.detalhe})` : mensagemBase;
+      throw new Error(mensagemCompleta);
     }
     return dados;
   },

@@ -70,6 +70,28 @@ app.get('/api/setup', async (req, res) => {
   }
 });
 
+/**
+ * Rota de migração — atualiza um banco JÁ EXISTENTE (criado antes desta
+ * versão) adicionando os novos campos, sem apagar nada do que já existe.
+ * Protegida pela mesma SETUP_KEY.
+ */
+app.get('/api/migrate', async (req, res) => {
+  if (!process.env.SETUP_KEY || req.query.key !== process.env.SETUP_KEY) {
+    return res.status(403).json({ erro: 'Chave de configuração inválida ou não definida.' });
+  }
+
+  try {
+    await pool.query(`
+      ALTER TABLE solicitacoes ADD COLUMN IF NOT EXISTS itens JSONB NOT NULL DEFAULT '[]'::jsonb;
+      ALTER TABLE solicitacoes ADD COLUMN IF NOT EXISTS prazo_entrega_dias INTEGER;
+    `);
+    res.json({ mensagem: 'Banco de dados atualizado com sucesso com os novos campos (itens e prazo em dias).' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao atualizar o banco de dados.', detalhe: err.message });
+  }
+});
+
 // ==== Tratamento de erros global ====
 app.use((err, req, res, next) => {
   console.error(err);

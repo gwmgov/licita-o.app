@@ -1,10 +1,10 @@
 const pool = require('../config/db');
 
+// Campos que ficam direto na tabela solicitacoes (nível da licitação, não do item)
 const CAMPOS_LICITACAO = [
   'data_licitacao', 'hora_licitacao', 'concessionaria', 'edital_numero', 'orgao', 'uf',
-  'prazo_entrega', 'item', 'modelo', 'versao', 'm_y', 'cor', 'quantidade', 'srp',
-  'valor_estimado', 'apresentar_prototipo', 'acessorios', 'revisoes',
-  'seguro_garantia', 'transformacao', 'observacoes', 'area_departamento'
+  'prazo_entrega_dias', 'area_departamento', 'srp', 'valor_estimado',
+  'seguro_garantia', 'transformacao', 'observacoes'
 ];
 
 const Solicitacao = {
@@ -15,8 +15,14 @@ const Solicitacao = {
 
   async criar(dados, usuarioId) {
     const protocolo = await this.gerarProtocolo();
-    const colunas = ['numero_protocolo', 'solicitante_id', 'criado_por', ...CAMPOS_LICITACAO];
-    const valores = [protocolo, usuarioId, usuarioId, ...CAMPOS_LICITACAO.map((c) => dados[c] ?? null)];
+    const colunas = ['numero_protocolo', 'solicitante_id', 'criado_por', 'itens', ...CAMPOS_LICITACAO];
+    const valores = [
+      protocolo,
+      usuarioId,
+      usuarioId,
+      JSON.stringify(dados.itens || []),
+      ...CAMPOS_LICITACAO.map((c) => dados[c] ?? null)
+    ];
     const placeholders = valores.map((_, i) => `$${i + 1}`).join(', ');
 
     const { rows } = await pool.query(
@@ -44,12 +50,17 @@ const Solicitacao = {
 
   async atualizar(id, dados) {
     const colunasValidas = CAMPOS_LICITACAO.filter((c) => dados[c] !== undefined);
-    if (colunasValidas.length === 0) return this.buscarPorId(id);
-
     const setClauses = colunasValidas.map((c, i) => `${c} = $${i + 1}`);
     const valores = colunasValidas.map((c) => dados[c]);
-    valores.push(id);
 
+    if (dados.itens !== undefined) {
+      setClauses.push(`itens = $${valores.length + 1}`);
+      valores.push(JSON.stringify(dados.itens));
+    }
+
+    if (setClauses.length === 0) return this.buscarPorId(id);
+
+    valores.push(id);
     const { rows } = await pool.query(
       `UPDATE solicitacoes SET ${setClauses.join(', ')} WHERE id = $${valores.length} RETURNING *`,
       valores

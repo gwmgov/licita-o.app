@@ -78,8 +78,11 @@
             <input type="text" class="form-control" name="edital_numero" placeholder="Ex.: 045/2026">
           </div>
           <div class="col-md-3">
-            <label class="form-label">Prazo de Entrega</label>
-            <input type="date" class="form-control" name="prazo_entrega">
+            <label class="form-label">Prazo de Entrega (em dias)</label>
+            <div class="input-group">
+              <input type="number" min="1" class="form-control" name="prazo_entrega_dias" placeholder="Ex.: 90">
+              <span class="input-group-text">dias</span>
+            </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Concessionária</label>
@@ -94,46 +97,8 @@
 
       <!-- ETAPA 2 -->
       <div class="etapa" data-etapa="2">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label class="form-label">Item</label>
-            <input type="text" class="form-control" name="item">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Modelo</label>
-            <input type="text" class="form-control" name="modelo">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Versão</label>
-            <input type="text" class="form-control" name="versao">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">M/Y (Ano/Modelo)</label>
-            <input type="text" class="form-control" name="m_y" placeholder="Ex.: 2026">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Cor</label>
-            <input type="text" class="form-control" name="cor">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Quantidade</label>
-            <input type="number" min="0" class="form-control" name="quantidade">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Apresentar Protótipo?</label>
-            <select class="form-select" name="apresentar_prototipo">
-              <option value="false">Não</option><option value="true">Sim</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Acessórios</label>
-            <textarea class="form-control" name="acessorios" rows="2"></textarea>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Revisões</label>
-            <textarea class="form-control" name="revisoes" rows="2"></textarea>
-          </div>
-        </div>
+        <div id="itens-container"></div>
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-3" id="btn-adicionar-item">+ Adicionar Item</button>
       </div>
 
       <!-- ETAPA 3 -->

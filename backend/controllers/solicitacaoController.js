@@ -20,7 +20,7 @@ async function criar(req, res) {
     res.status(201).json(solicitacao);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao criar solicitação.' });
+    res.status(500).json({ erro: 'Erro ao criar solicitação.', detalhe: err.message });
   }
 }
 
@@ -48,7 +48,7 @@ async function atualizar(req, res) {
     res.json(atualizada);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao atualizar solicitação.' });
+    res.status(500).json({ erro: 'Erro ao atualizar solicitação.', detalhe: err.message });
   }
 }
 
@@ -75,7 +75,7 @@ async function enviarParaAprovacao(req, res) {
     res.json(atualizada);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao enviar solicitação para aprovação.' });
+    res.status(500).json({ erro: 'Erro ao enviar solicitação para aprovação.', detalhe: err.message });
   }
 }
 
@@ -92,7 +92,7 @@ async function buscarPorId(req, res) {
     res.json({ ...solicitacao, anexos, historico });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao buscar solicitação.' });
+    res.status(500).json({ erro: 'Erro ao buscar solicitação.', detalhe: err.message });
   }
 }
 
@@ -103,7 +103,7 @@ async function pesquisar(req, res) {
     res.json(resultado);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao pesquisar solicitações.' });
+    res.status(500).json({ erro: 'Erro ao pesquisar solicitações.', detalhe: err.message });
   }
 }
 
@@ -113,7 +113,7 @@ async function dashboard(req, res) {
     res.json(indicadores);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao carregar indicadores do dashboard.' });
+    res.status(500).json({ erro: 'Erro ao carregar indicadores do dashboard.', detalhe: err.message });
   }
 }
 
@@ -174,7 +174,7 @@ async function transicionarStatus(req, res, novoStatus, acao, observacao, extras
     res.json(atualizada);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro ao atualizar status da solicitação.' });
+    res.status(500).json({ erro: 'Erro ao atualizar status da solicitação.', detalhe: err.message });
   }
 }
 

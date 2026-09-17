@@ -11,20 +11,11 @@ const CAMPOS_EXIBICAO = [
   ['edital_numero', 'Edital Nº', (v) => v || '-'],
   ['uf', 'UF', (v) => v || '-'],
   ['concessionaria', 'Concessionária', (v) => v || '-'],
-  ['prazo_entrega', 'Prazo de Entrega', formatarData],
-  ['item', 'Item', (v) => v || '-'],
-  ['modelo', 'Modelo', (v) => v || '-'],
-  ['versao', 'Versão', (v) => v || '-'],
-  ['m_y', 'M/Y', (v) => v || '-'],
-  ['cor', 'Cor', (v) => v || '-'],
-  ['quantidade', 'Quantidade', (v) => v ?? '-'],
+  ['prazo_entrega_dias', 'Prazo de Entrega', (v) => (v ? `${v} dias` : '-')],
   ['srp', 'SRP', (v) => (v ? 'Sim' : 'Não')],
   ['valor_estimado', 'Valor Estimado', formatarMoeda],
-  ['apresentar_prototipo', 'Apresentar Protótipo?', (v) => (v ? 'Sim' : 'Não')],
   ['seguro_garantia', 'Seguro Garantia?', (v) => (v ? 'Sim' : 'Não')],
   ['transformacao', 'Transformação?', (v) => (v ? 'Sim' : 'Não')],
-  ['acessorios', 'Acessórios', (v) => v || '-'],
-  ['revisoes', 'Revisões', (v) => v || '-'],
   ['observacoes', 'Observações', (v) => v || '-']
 ];
 
@@ -88,6 +79,20 @@ async function carregarDetalhe() {
       ${s.motivo_reprovacao ? `<div class="col-12"><div class="text-muted" style="font-size:0.75rem;">Motivo da Reprovação</div><div class="text-danger">${s.motivo_reprovacao}</div></div>` : ''}
       ${s.comentario_aprovador ? `<div class="col-12"><div class="text-muted" style="font-size:0.75rem;">Comentário do Aprovador</div><div>${s.comentario_aprovador}</div></div>` : ''}
     `;
+
+    const itens = s.itens || [];
+    document.getElementById('tabela-itens-detalhe').innerHTML = itens.length
+      ? itens.map((it) => `
+        <tr>
+          <td>${it.item || '-'}</td>
+          <td>${it.modelo || '-'}</td>
+          <td>${it.versao || '-'}</td>
+          <td>${it.m_y || '-'}</td>
+          <td>${it.cor || '-'}</td>
+          <td>${it.quantidade ?? '-'}</td>
+          <td>${it.apresentar_prototipo ? 'Sim' : 'Não'}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7" class="text-muted text-center">Nenhum item cadastrado.</td></tr>';
 
     document.getElementById('lista-anexos-detalhe').innerHTML = s.anexos.length
       ? s.anexos.map((a) => `<li class="mb-1">📎 <a href="${API.baseUrl}/anexos/download/${a.id}" target="_blank">${a.nome_arquivo}</a> <span class="text-muted small">(${(a.tamanho_bytes / 1024).toFixed(0)} KB)</span></li>`).join('')
